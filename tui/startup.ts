@@ -7,16 +7,17 @@ const BANNER_FONT = 'ANSI Shadow';
 const SHADOW = chalk.hex('#5b4d9e');
 const FACE = chalk.hex('#e8dcf8').bold;
 
-function printBannerWithShadow(ascii:string){
-    const bannerLines = ascii.replace(/\s+$/, '').split('\n');
-    const maxlen = Math.max(...bannerLines.map((l) => l.length),0);
-    const rowWidth = maxlen + 2;
+function printBannerWithShadow(ascii: string) {
 
-    for(const line of bannerLines) {
+    const bannerLines = ascii.replace(/\s+$/, '').split('\n');
+    const maxLen = Math.max(...bannerLines.map((l) => l.length), 0);
+    const rowWidth = maxLen + 2;
+
+    for (const line of bannerLines) {
         console.log(SHADOW(('  ' + line).padEnd(rowWidth)));
     }
     process.stdout.write(`\x1b[${bannerLines.length}A`);
-    for(const line of bannerLines){
+    for (const line of bannerLines) {
         console.log(FACE(line.padEnd(rowWidth)));
     }
     console.log();
@@ -25,10 +26,11 @@ function printBannerWithShadow(ascii:string){
 export async function runStartup(){
     let ascii:string;
     try {
-        ascii = figlet.textSync("openfang",{font:BANNER_FONT})
+        ascii = figlet.textSync("chaicodeclaw" , {font:BANNER_FONT})
     } catch (error) {
-        ascii =figlet.textSync("openfang",{font:"Standard"})
+        ascii = figlet.textSync("chaicodeclaw" , {font:"Standard"})
     }
+
     printBannerWithShadow(ascii)
 
     const mode = await select({
