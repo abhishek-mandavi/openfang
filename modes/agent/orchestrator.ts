@@ -13,7 +13,7 @@ export async function runAgentMode() {
     console.log(chalk.bold("\n🤖 Agent Mode\n"));
 
     const goal = await text({
-        message: "What would you like the agent to do?",
+        message: "What agent would you like to do for you?",
         placeholder: "Concrete task for this codebase…",
     });
 

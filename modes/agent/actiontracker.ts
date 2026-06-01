@@ -27,16 +27,16 @@ export class ActionTracker {
     return this.actions;
   }
 
-    getPendingMutations(): ActionLog[] {
-        return this.actions.filter(
-        (a) => isMutationType(a.type) && a.status === "pending",
-        );
-    }
+  getPendingMutations(): ActionLog[] {
+    return this.actions.filter(
+      (a) => isMutationType(a.type) && a.status === "pending",
+    );
+  }
 
-    updateStatus(id: string, status: ActionStatus, userApproved?: boolean): void {
-        const a = this.actions.find((x) => x.id === id);
-        if (!a) return;
-        a.status = status;
-        if (userApproved !== undefined) a.userApproved = userApproved;
-    }
+  updateStatus(id: string, status: ActionStatus, userApproved?: boolean): void {
+    const a = this.actions.find((x) => x.id === id);
+    if (!a) return;
+    a.status = status;
+    if (userApproved !== undefined) a.userApproved = userApproved;
+  }
 }

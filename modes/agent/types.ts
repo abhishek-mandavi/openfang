@@ -8,12 +8,12 @@ export type ActionType =
 
 export type ActionStatus = 'pending' | 'executed' | 'approved' | 'rejected';
 
-export interface ActionLog{
+export interface ActionLog {
     id: string;
     timestamp: Date;
     type: ActionType;
     path: string;
-    details:{
+    details: {
         before?: string;
         after?: string;
         toolName?: string;
@@ -25,11 +25,11 @@ export interface ActionLog{
     userApproved?: boolean;
 }
 
-export interface AgentConfig{
+export interface AgentConfig {
     codebasePath: string;
     maxFileSizeToRead: number;
     excludePatterns: string[];
-    tools:{
+    tools: {
         allowShellExecution: boolean;
         allowFileModification: boolean;
         allowFileCreation: boolean;
@@ -39,25 +39,25 @@ export interface AgentConfig{
 
 export const defaultAgentConfig = (): AgentConfig => ({
     codebasePath: process.cwd(),
-    maxFileSizeToRead: 1024 * 1024,
+    maxFileSizeToRead: 1024 * 1024 ,
     excludePatterns: [
         'node_modules',
         '.git',
         'dist',
         'build',
-        'next',
+        '.next',
         '*.log',
         '.env*',
     ],
-    tools:{
+    tools: {
         allowShellExecution: true,
-        allowFileCreation: true,
         allowFileModification: true,
+        allowFileCreation: true,
         allowFolderCreation: true,
     },
 });
 
-export function isMutationType(t:ActionType): boolean{
+export function isMutationType(t: ActionType): boolean {
     return (
         t === 'file_create' ||
         t === 'file_modify' ||
