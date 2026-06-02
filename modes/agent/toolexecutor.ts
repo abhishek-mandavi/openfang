@@ -337,10 +337,10 @@ export class ToolExecutor {
         }
         const out = lines.sort().join("\n");
         this.tracker.log({
-        type: "code_analysis",
-        path: "skills",
-        details: { after: out || "(none)", toolName: "list_skills" },
-        status: "executed",
+            type: "code_analysis",
+            path: "skills",
+            details: { after: out || "(none)", toolName: "list_skills" },
+            status: "executed",
         });
         return out || "(none)";
     }
@@ -370,7 +370,7 @@ export class ToolExecutor {
 
         for (const a of all.filter(
             (x) => x.type === "folder_create" && x.status === "approved",
-        )) 
+        ))
         {
             try {
                 fs.mkdirSync(this.resolveSafe(a.path), { recursive: true });
@@ -429,3 +429,5 @@ export class ToolExecutor {
         this.deleted.clear()
     }
 }
+
+
