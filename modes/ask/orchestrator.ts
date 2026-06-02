@@ -2,7 +2,6 @@ import { confirm, isCancel, text } from "@clack/prompts";
 import { ToolLoopAgent, stepCountIs, tool } from "ai";
 import chalk from "chalk";
 import { z } from "zod";
-
 import { getAgentModel } from "../../ai/ai.config.ts";
 import { renderTerminalMarkdown } from "../../tui/terminal-md.ts";
 import { ActionTracker } from "../agent/actiontracker.ts";
@@ -10,7 +9,6 @@ import { runApprovalFlow } from "../agent/approval.ts";
 import { ToolExecutor } from "../agent/toolexecutor.ts";
 import { defaultAgentConfig } from "../agent/types.ts";
 import { createWebTools } from "../plan/web-tools.ts";
-
 
 function createAskTools(executor: ToolExecutor) {
     return {
@@ -39,12 +37,12 @@ function createAskTools(executor: ToolExecutor) {
             inputSchema: z.object({
                 root: z.string().describe("Directory to search, relative to root"),
                 pattern: z
-                .string()
-                .describe("Glob-like pattern using * and ** (forward slashes)"),
+                    .string()
+                    .describe("Glob-like pattern using * and ** (forward slashes)"),
                 content_contains: z.string().optional(),
             }),
             execute: async ({ root, pattern, content_contains }) =>
-                executor.searchFiles(root, pattern, content_contains),
+            executor.searchFiles(root, pattern, content_contains),
         }),
 
         analyze_codebase: tool({
@@ -93,6 +91,7 @@ export async function runAskMode() {
     const tracker = new ActionTracker();
     const executor = new ToolExecutor(tracker, config);
 
+
     const tools = {
         ...createAskTools(executor),
         ...createWebTools(tracker)
@@ -109,7 +108,7 @@ export async function runAskMode() {
     console.log("\n" + renderTerminalMarkdown(answer) + "\n");
 
     const wantsSave = await confirm({
-        message:"Save this answer to a .md file in the current directory?",
+        message:"Save answer to a .md file in the current directory?",
         initialValue:false,
     });
     if (isCancel(wantsSave) || !wantsSave) return;
@@ -117,7 +116,7 @@ export async function runAskMode() {
     const filename = await text({
         message:"Filename",
         initialValue:"ask.md",
-            validate: (v) => {
+        validate: (v) => {
             const s = (v ?? '').trim();
             if (!s) return 'Required';
             if (s.includes('..') || s.includes('/') || s.includes('\\')) return 'No paths';
@@ -133,5 +132,4 @@ export async function runAskMode() {
 
     executor.applyApprovedFromTracker();
     executor.clearStaging();
-
 }

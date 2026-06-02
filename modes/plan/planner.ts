@@ -103,7 +103,7 @@ const PLAN_INSTRUCTIONS = (codebase: string, hasWeb: boolean) =>
         ? "Web tools are available (web_search/web_crawl/fetch_url). Use only when needed."
         : "Web tools are unavailable (no FIRECRAWL_API_KEY).",
     "Output must match the provided JSON schema.",
-    "Keep it short: 1–15 steps.",
+    "Keep it short: 1-15 steps.",
 ].join("\n");
 
 export async function generatePlan(goal: string) {
