@@ -41,5 +41,3 @@ Built-in tools for:
 ### Channels
 Connect agents to multiple platforms simultaneously.
 
-
-## 📋 Prerequisites
