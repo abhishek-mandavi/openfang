@@ -68,7 +68,7 @@ export function registerHandlers(bot: Telegraf) {
         await ctx.answerCbQuery();
     });
 
-  
+
     bot.action('plan_all', async (ctx) => {
         if (!isOwner(ctx.chat!.id)) return ctx.answerCbQuery();
         const s = planSessions.get(ctx.chat!.id);
