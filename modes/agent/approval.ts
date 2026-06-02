@@ -42,7 +42,7 @@ function groupPending(pending: ActionLog[]): ReviewGroup[] {
                 actionIds: ids,
                 patch: null,
             });
-        continue;
+            continue;
         }
 
         const { before, after } = composeBeforeAfter(sorted);
@@ -53,9 +53,9 @@ function groupPending(pending: ActionLog[]): ReviewGroup[] {
 
     for (const s of shells) {
         groups.push({
-            label: `Shell: ${s.details.command ?? "(no command)"}`,
-            actionIds: [s.id],
-            patch: null,
+        label: `Shell: ${s.details.command ?? "(no command)"}`,
+        actionIds: [s.id],
+        patch: null,
         });
     }
 
@@ -64,7 +64,7 @@ function groupPending(pending: ActionLog[]): ReviewGroup[] {
 
 export async function runApprovalFlow(
     tracker: ActionTracker,
-    ):Promise<boolean>
+): Promise<boolean>
 {
     const pending = tracker.getPendingMutations();
 
@@ -78,9 +78,9 @@ export async function runApprovalFlow(
     const choice = await select({
         message: "Apply staged changes?",
         options: [
-            { value: "all", label: "Approve and apply all" },
-            { value: "select", label: "Review one by one" },
-            { value: "cancel", label: "Cancel" },
+        { value: "all", label: "Approve and apply all" },
+        { value: "select", label: "Review one by one" },
+        { value: "cancel", label: "Cancel" },
         ],
     });
 
@@ -99,9 +99,9 @@ export async function runApprovalFlow(
             const opt = await select({
                 message: chalk.bold(g.label),
                 options: [
-                    { value: "accept", label: "Accept" },
-                    { value: "diff", label: "Show diff", hint: g.patch ? "" : "N/A" },
-                    { value: "reject", label: "Reject" },
+                { value: "accept", label: "Accept" },
+                { value: "diff", label: "Show diff", hint: g.patch ? "" : "N/A" },
+                { value: "reject", label: "Reject" },
                 ],
             });
 
@@ -112,11 +112,11 @@ export async function runApprovalFlow(
 
             if (opt === "diff") {
                 if (g.patch) {
-                console.log(
-                    "\n" +
-                    renderTerminalMarkdown("```diff\n" + g.patch + "\n```\n") +
-                    "\n",
-                );
+                    console.log(
+                        "\n" +
+                        renderTerminalMarkdown("```diff\n" + g.patch + "\n```\n") +
+                        "\n",
+                    );
                 }
 
                 continue;
@@ -124,9 +124,9 @@ export async function runApprovalFlow(
 
             for (const id of g.actionIds) {
                 tracker.updateStatus(
-                id,
-                opt === "accept" ? "approved" : "rejected",
-                opt === "accept",
+                    id,
+                    opt === "accept" ? "approved" : "rejected",
+                    opt === "accept",
                 );
             }
             break;
